@@ -22,7 +22,7 @@ except DistributionNotFound:
 else:
     __version__ = _dist.version
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('nose.plugins.%s' % __name__)
 
 
 class NoseGAE(Plugin):
@@ -87,6 +87,11 @@ class NoseGAE(Plugin):
 
         # get the app id out of your app.yaml and stuff
         configuration = application_configuration.ApplicationConfiguration([self._app_path])
+        logger.debug('_app_path: %s', self._app_path)
+        logger.debug('configuration: %s', configuration)
+        logger.debug('dir configuration: %s', dir(configuration))
+        logger.debug('configuration modules: %s', configuration.modules[0])
+        logger.debug('dir configuration modules: %s', dir(configuration.modules[0]))
 
         os.environ['APPLICATION_ID'] = configuration.app_id
         # simulate same environment as devappserver2
